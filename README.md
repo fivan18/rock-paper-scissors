@@ -1,0 +1,1 @@
+This project is a simple implementation of the game "rock paper scissors". Basic logic.
