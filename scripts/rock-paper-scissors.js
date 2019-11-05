@@ -1,69 +1,67 @@
-function computerPlay(){
-    let randomNunber = (Math.floor(Math.random() * 3) + 1);
-    return  randomNunber === 1
-                            ? 'Rock'
-                            : randomNunber === 2
-                                            ? 'Paper'
-                                            : 'Scissors' ;
+function selectRandomRPS(){
+    const randomNumber = (Math.floor(Math.random() * 3) + 1);
+    return  randomNumber === 1
+            ? 'Rock'
+            : randomNumber === 2
+                    ? 'Paper'
+                    : 'Scissors' ;
 }
 
 function playRound(playerSelection, computerSelection){
-    // Clear the string
     playerSelection = playerSelection.trim().toLowerCase();
-    //Upper case the first letter
     playerSelection = playerSelection[0].toUpperCase() +
         playerSelection.slice(1);
 
-    // Validation word
-    let arrRPS = ['Rock', 'Paper', 'Scissors']
-    if(!arrRPS.includes(playerSelection)){
-        console.log('Enter a valid word.');
-        return 0;
+    const arrRPS = ['Rock', 'Paper', 'Scissors']
+    if(
+        !arrRPS.includes(playerSelection) || 
+        playerSelection === computerSelection
+        ){
+        return "No one";
     }
 
-    console.log('Player selection: ' + playerSelection);
-    console.log('Computer selection: ' + computerSelection);
-
-    if(playerSelection === computerSelection){
-        return 0;
-    }
-
-    let youWin = {
+    const winnerCombination = {
         'Paper': 'Rock',
         'Rock': 'Scissors', 
         'Scissors' : 'Paper'
     }
-    if(youWin[playerSelection] === computerSelection){
-        return 1;
+    if(
+        winnerCombination[playerSelection] === computerSelection
+        ){
+        return "Player";
     } else {
-        return 2;
+        return "Computer";
     }
 }
 
-function game(){
-    let scorePlayer = 0;
-    let scoreComputer = 0;
-    for(let i = 0; i < 5; i++){
-        console.log('Game: ' + i);
-        let whoWins = playRound(prompt('Enter a word to play'), computerPlay());
-        if (
-            whoWins === 1
-        ) {
-            scorePlayer++;
-        } else if (
-            whoWins === 2
-        ) {
-            scoreComputer++;
-        }  
-    }
+function display(event) {
+    const playerSelection = event.currentTarget.value;
+    const computerSelection = selectRandomRPS();
+    const whoWins = playRound(playerSelection, computerSelection);
 
-    if(scorePlayer > scoreComputer){
-        alert('Congratulations! you win the game');
-    } else if(scoreComputer > scorePlayer){
-        alert('Sorry you lose the game');
+    score[whoWins]++;
+
+    const display = document.querySelector("#display");
+    if(
+        score.Player == 5 ||
+        score.Computer == 5
+        ){
+        display.innerHTML = `Winner:  ${score.Player == 5 ? 'Player' : 'Computer'}`;
+
+        score.Player = 0;
+        score.Computer = 0;
     } else {
-        alert('No one wins');
+        display.innerHTML = `Player selection:  ${playerSelection} Score: ${score.Player} <br>` +
+            `Computer selection:  ${computerSelection} Score: ${score.Computer} <br>`;
     }
 }
 
-game();
+const buttons = Array.from(document.querySelectorAll("button"));
+buttons.forEach(button => {
+    button.addEventListener("click", display);
+});
+
+const score = {
+    "Computer": 0,
+    "Player": 0
+};
