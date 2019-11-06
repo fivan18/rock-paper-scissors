@@ -34,29 +34,64 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-function display(event) {
-    const playerSelection = event.currentTarget.value;
-    const computerSelection = selectRandomRPS();
-    const whoWins = playRound(playerSelection, computerSelection);
-
-    score[whoWins]++;
-
-    const display = document.querySelector("#display");
+function changeScore() {
+    const displayScore = document.querySelector("#score > span");
     if(
         score.Player == 5 ||
         score.Computer == 5
         ){
-        display.innerHTML = `Winner:  ${score.Player == 5 ? 'Player' : 'Computer'}`;
+        displayScore.innerHTML = `${score.Player == 5 ? 'You win!!!' : 'Loser!'}`;
 
+        // Finish of game, so reset all
         score.Player = 0;
         score.Computer = 0;
+        setTimeout(function(){
+            const displayScore = document.querySelector("#score > span");
+            displayScore.innerHTML = `${score.Player} - ${score.Computer}`;
+
+            const classesRPS = document.querySelector("#rps > div").classList;
+            classesRPS.remove("rock", "paper", "scissors");
+        }, 3000);
     } else {
-        display.innerHTML = `Player selection:  ${playerSelection} Score: ${score.Player} <br>` +
-            `Computer selection:  ${computerSelection} Score: ${score.Computer} <br>`;
+        displayScore.innerHTML = `${score.Player} - ${score.Computer}`;
     }
 }
 
-const buttons = Array.from(document.querySelectorAll("button"));
+function changeImageComputer(computerSelection){
+    computerSelection = computerSelection[0].toLowerCase() +
+            computerSelection.slice(1);
+    const classesRPS = document.querySelector("#rps > div").classList;
+    classesRPS.remove("rock", "paper", "scissors");
+    classesRPS.add(computerSelection);
+}
+
+function display(event) {
+    const playerSelection = event.currentTarget.getAttribute("data-choose");
+    const computerSelection = selectRandomRPS();
+    const whoWins = playRound(playerSelection, computerSelection);
+
+    // Animation
+    const classesRPS = document.querySelector("#rps > div").classList;
+    classesRPS.remove("rock", "paper", "scissors");
+    setTimeout(function(){
+        changeImageComputer("rock");
+        setTimeout(function(){
+            changeImageComputer("paper");
+            setTimeout(function(){
+                changeImageComputer("scissors");
+                setTimeout(function(){
+                    changeImageComputer(computerSelection);
+                },300);
+            },300);
+        },300);
+    },300);
+
+    // Wait to finish the animation
+    score[whoWins]++;
+    setTimeout(changeScore, 1900);
+}
+
+const buttons = Array.from(document.querySelectorAll("[data-choose]"));
 buttons.forEach(button => {
     button.addEventListener("click", display);
 });

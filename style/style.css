@@ -1,0 +1,86 @@
+/*main,section,#rock,#paper,#scissors {
+    border: 1px solid black;
+}*/
+
+h1, span {
+    font-family: 'McLaren', cursive;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 90px;
+    width: 11.8em;
+    margin: .5em auto;
+}
+
+.rock {
+    width: 190px;
+    height: 170px;
+    background: url(../images/rock-paper-scissors.jpg) -70px -525px;
+}
+.paper {
+    width: 230px;
+    height: 268px;
+    background: url(../images/rock-paper-scissors.jpg) -515px -426px;
+}
+.scissors {
+    width: 163px;
+    height: 302px;
+    background: url(../images/rock-paper-scissors.jpg) -969px -408px;
+}
+
+.grid-main {
+    width: 100%;
+    height: 570px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-player {
+    display: grid; 
+    grid-template: 1fr 1fr / 1fr 1fr;
+}
+#rock {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+}
+#paper {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+}
+#scissors {
+    grid-row: 1 / span 2;
+    grid-column: 2 / span 1;
+}
+#rps {
+    width: 100%;
+    height: 100%;
+}
+#rock,#paper,#scissors,#rps,#score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#score > span {
+    font-size: 75px;
+}
+
+#rock > div,#paper > div,#scissors > div, #rps > div {
+    transition: all 0.3s;
+}
+.scale:hover{
+    transform: scale(1.05);
+}
+
+.scale-rps {
+    transform: scale(1.05);
+}
+
+
+
+

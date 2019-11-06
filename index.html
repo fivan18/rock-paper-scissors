@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-    </head>
-    <body>
 
-        <div>
-            <button value="Rock">Rock</button>
-            <button value="Paper">Paper</button>
-            <button value="Scissors">Scissors</button>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style/style.css">
+    <link href="https://fonts.googleapis.com/css?family=McLaren&display=swap" rel="stylesheet">
+</head>
 
-        <div id="display">
+<body>
+    <div id="container">
+        <header>
+            <h1>Rock, Paper, Scissors!!!</h1>
+        </header>
+        <main class="grid-main">
+            <section id="player" class="grid-player">
+                <div id="rock">
+                    <div data-choose="Rock" class="rock scale"></div>
+                </div>
+                <div id="paper">
+                    <div data-choose="Paper" class="paper scale"></div>
+                </div>
+                <div id="scissors">
+                    <div data-choose="Scissors" class="scissors scale"></div>
+                </div>
+            </section>
+            <section id="score">
+                <span>0 - 0</span>
+            </section>
+            <section id="computer">
+                <div id="rps">
+                    <div></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script type="text/javascript" src="scripts/rock-paper-scissors.js"></script>
+</body>
 
-        </div>
-
-
-        <script type="text/javascript" src="scripts/rock-paper-scissors.js"></script>
-    </body>
 </html>
